@@ -1,0 +1,169 @@
+<%- include("partials/_header") -%>
+
+    <!--Start search form-->
+    <div class="main-search-form bg-brand-4">
+        <div class="container">
+            <div class=" pt-50 pb-50 ">
+                <div class="row mb-20">
+                    <div class="col-12 align-self-center main-search-form-cover m-auto">
+                        <p class="text-center"><span class="display-1">Search</span></p>
+                        <form action="#" class="search-header">
+                            <div class="input-group w-100">
+                                <input type="text" class="form-control" placeholder="Search articles, places and people">
+                                <div class="input-group-append">
+                                    <button class="btn btn-search bg-white" type="submit">
+                                        <img class="svg-icon-24" src="assets/imgs/theme/svg/search.svg" alt="">
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-80 text-center">
+                    <div class="col-12 font-small suggested-area">
+                        <h5 class="suggested font-heading mb-20 text-grey-400"> <strong>Suggested keywords:</strong></h5>
+                        <ul class="list-inline d-inline-block">
+                            <li class="list-inline-item"><a href="category.html">Health</a></li>
+                            <li class="list-inline-item"><a href="category.html">Travel tips</a></li>
+                            <li class="list-inline-item"><a href="category.html">Lifestyle</a></li>
+                            <li class="list-inline-item"><a href="category.html">Technology</a></li>
+                            <li class="list-inline-item"><a href="category.html">Food</a></li>
+                            <li class="list-inline-item"><a href="category.html">Books</a></li>
+                            <li class="list-inline-item"><a href="category.html">Drink</a></li>
+                            <li class="list-inline-item"><a href="category.html">Fashion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start Main content -->
+    <main>
+        <
+        <section class="pt-30 pb-65">
+            <div class="container">
+                <h3 class="font-heading mb-50">Share Your Movie Diary </h3>
+                <div class="row">
+                    <div class="col-md-8">
+                        <form class="form-contact comment_form" action="#" id="commentForm">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input class="form-control" name="name" id="name" type="text" placeholder="Movie or Artist Name">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input class="form-control" name="name" id="name" type="text" placeholder="Category">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input class="form-control" name="name" id="name" type="text" placeholder="Title">
+                                    </div>
+                                </div>
+                               
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Dear Diary..."></textarea>
+                                    </div>
+                                </div>
+                            
+                        
+                                <div class="col-12 ">
+                                    <div class="form-group">
+                                        <form method="POST" action="/photos" class="form-contact"></form>
+                                         <input class="btn-search"  name="addphoto" id="addphoto" type="file"  placeholder="Add Photo">
+                                     </div>
+                                </div>
+                            </div>
+                            
+                           
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <div class="custome-checkbox">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="createaccount">
+                                        <label class="form-check-label label_info fw-700 text-grey-100 font-md"><span>Post Secret</label>
+                                    </div>
+                                </div>
+                            
+
+                            </div>
+
+                            <div class="form-group">
+                                <button  class="btn btn-lg bg-brand-1 text-grey-700  " type="submit">Submit</button>
+                            </div>
+                            
+                           
+                        </form>
+                    </div>
+                   
+                </div>
+            </div>
+        </section>
+
+
+<!--BAŞlık-->
+
+    <div class="container">
+        <h3 class="font-heading mb-50">Memories </h3>
+    </div>
+
+
+
+
+        <!-- POSTS-->
+
+
+        <div class="recent-posts pb-65">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="loop-list loop-list-style-1  mb-md-30">
+                            <article class="hover-up-3 border-radius-10 overflow-hidden wow fadeIn animated">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="post-thumb position-relative" style="background-image: url(assets/imgs/news/thumb-3.jpg)">
+                                            <a class="img-link" href="single.html"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 align-self-center">
+                                        <div class="post-content pr-30">
+                                            <div class="post-meta-1 mb-20">
+                                                <a href="category.html" class="tag-category bg-brand-1 shadown-1 text-dark button-shadow hover-up-3" tabindex="0">Fashion</a>
+                                            </div>
+                                            <h4 class="post-title mb-40">
+                                                <a class="" href="single.html">Beachmaster Elephant Seal Fights achmaster Elephant</a>
+                                            </h4>
+                                            <div class="d-flex">
+                                                <div class="post-meta-2 font-md d-flex w-70">
+                                                    
+                                                    <div class="mb-0 post-on font-lg text-grey-400">
+                                                        <input type="date" id="birthday" name="birthday"> 
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                         
+
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="mt-65">
+                    <button class="btn btn-lg bg-dark text-white d-inline-block">Load more posts</button>
+                </div>
+            </div>
+        </div>
+       
+    </main>
+    <!-- End Main content -->
+    <!-- Footer Start-->
+    <%- include("partials/_footer") -%>
+    
