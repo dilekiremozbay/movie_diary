@@ -95,18 +95,34 @@
                         <div class="col-lg-2"></div>
                         <div class="col-lg-5">
                             <h3 class="font-heading mb-50">Create an account</h3>
-                            <form class="form-contact comment_form" action="#" id="commentForm">
+
+                            <% if (error) { %>
+                                <p style="color: red"><%= error %></p>
+                            <% } %>
+
+                            <form class="form-contact comment_form" action="/register" id="commentForm" method="post">
                                 <div class="form-group">
-                                    <input class="form-control" name="username" id="username" type="text" placeholder="Username">
+                                    <input
+                                        class="form-control"
+                                        name="username"
+                                        id="username"
+                                        type="text"
+                                        placeholder="Username"
+                                        <% if (values.username) { %>
+                                            value="<%= values.username %>"
+                                        <% } %>
+                                    >
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" name="email" id="email" type="text" placeholder="Email">
+                                    <input
+                                        class="form-control" name="email" id="email" type="text" placeholder="Email"
+                                    <% if (values.email) { %>
+                                        value="<%= values.email %>"
+                                    <% } %>
+                                    >
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" name="password" id="password" type="password" placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" name="password-2" id="password-2" type="password" placeholder="Confirm Password">
                                 </div>
                                 <div class="form-group">
                                     <div class="checkbox">

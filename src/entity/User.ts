@@ -1,21 +1,30 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number = 0;
 
-  @Column()
-  firstName: string = "";
-
-  @Column()
-  lastName: string = "";
-
+  @Index({
+    unique: true,
+  })
   @Column()
   username: string = "";
 
   @Column()
   password: string = "";
+
+  @Index({
+    unique: true,
+  })
+  @Column()
+  email: string = "";
 
   @Column("json")
   security: {

@@ -88,31 +88,37 @@
                             <img class="mb-30" src="assets/imgs/theme/lock.png" alt="">
                             <h1 class="headline-1 font-heading">Movie Diaries</h1>
                             <p class="font-lg text-grey-400">
-                                If you don't have an account? <strong><a href="#">Sign up</a></strong> now, or
+                                If you don't have an account? <strong><a href="/register">Sign up</a></strong> now, or
                             </p>
                         </div>
                         <div class="col-lg-2"></div>
                         <div class="col-lg-5">
                             <h3 class="font-heading mb-50">Login</h3>
-                            <form class="form-contact comment_form" action="#" id="commentForm">
+
+                            <div id="login-error-message">
+                                <p style="color: red"></p>
+                            </div>
+
+                            <form class="form-contact comment_form" action="/login" id="login-form" onsubmit="handleLogin(event)">
                                 <div class="form-group">
-                                    <input class="form-control" name="username" id="username" type="text" placeholder="Username or Email">
+                                    <input class="form-control" name="username" id="username" type="text" placeholder="Username or Email"
+                                        <% if (values.email) { %>
+                                            value="<%= values.email %>"
+                                        <% } %>
+                                    >
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" name="password" id="password" type="password" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-lg bg-grey-900 text-white btn-block" type="submit">LOGIN</button>
+                                    <button onclick="handleLogin(event)" class="btn btn-lg bg-grey-900 text-white btn-block" type="submit">LOGIN</button>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-fg bg-brand-1 text-grey-700 btn-block" type="submit">Sign in with Google</button>
+                                    <button class="btn btn-fg bg-brand-1 text-grey-700 btn-block">Sign in with Google</button>
                                 </div>
                                 <div class="form-group">
-                                    <button  class="btn btn-fg bg-brand-f text-white btn-block " type="submit">Sign in with Facebook</button>
+                                    <button class="btn btn-fg bg-brand-f text-white btn-block">Sign in with Facebook</button>
                                 </div>
-                               
-                                
-                                
                             </form>
                         </div>
                     </div>
@@ -122,3 +128,37 @@
     </main>
     <!-- End Main content -->
     <%- include("partials/_footer") -%>
+
+    <script>
+        async function handleLogin(ev) {
+            ev.preventDefault();
+
+            const form = new FormData(document.getElementById("login-form"));
+
+            console.log('login form:')
+            for (var pair of form.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            }
+
+            const resp = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(Object.fromEntries(form)),
+            });
+            const data = await resp.json();
+
+            console.log('login response:', data);
+
+            if (data.success) {
+                localStorage.setItem('token', data.token);
+                alert('login success');
+                window.location.href = '/';
+
+                return;
+            }
+
+            document.querySelector('#login-error-message p').innerHTML = data.error;
+        }
+    </script>
