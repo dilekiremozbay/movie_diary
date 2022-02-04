@@ -6,6 +6,6 @@ export function registerRoutes(app: Application) {
 
   app.get("/register", userController.register);
   app.post("/register", userController.registerPOST);
-  app.get("/login", userController.login);
-  app.post("/login", userController.loginPOST);
+  app.get("/", userController.login);
+  app.post("/", userController.loginPOST);
 }

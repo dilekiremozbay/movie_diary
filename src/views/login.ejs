@@ -140,7 +140,7 @@
                 console.log(pair[0] + ', ' + pair[1]);
             }
 
-            const resp = await fetch('/login', {
+            const resp = await fetch('/?from=register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -154,7 +154,7 @@
             if (data.success) {
                 localStorage.setItem('token', data.token);
                 alert('login success');
-                window.location.href = '/';
+                window.location.href = '/main';
 
                 return;
             }

@@ -34,7 +34,7 @@ export class UserController {
 
     await user.save();
 
-    return response.redirect("/login?from=register");
+    return response.redirect("/?from=register");
   }
 
   async login(req: Request, res: Response) {
@@ -74,22 +74,5 @@ export class UserController {
       success: false,
       error: "Invalid username or password",
     });
-  }
-
-  async all(request: Request, response: Response) {
-    return User.find();
-  }
-
-  async one(request: Request, response: Response) {
-    return User.findOne(request.params.id);
-  }
-
-  async save(request: Request, response: Response) {
-    return User.save(request.body);
-  }
-
-  async remove(request: Request, response: Response) {
-    let userToRemove = await User.findOne(request.params.id);
-    await User.remove(userToRemove);
   }
 }

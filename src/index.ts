@@ -28,7 +28,7 @@ app.listen(port, () => {
   console.log(`Sunucu ${port} portunda başlatıldı`);
 });
 
-app.get("/", (req, res) => {
+app.get("/main", (req, res) => {
   res.render("mainpage");
 });
 
