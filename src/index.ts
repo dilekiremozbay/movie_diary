@@ -1,23 +1,10 @@
 import "reflect-metadata";
 import "dotenv/config";
-import path from "path";
 import express from "express";
-import * as ejs from "ejs";
-import { Request, Response } from "express";
-import { createConnection } from "typeorm";
 import * as bodyParser from "body-parser";
-import { registerRoutes } from "./routes";
-import { Photo } from "./entity/photo";
-import { create } from "domain";
-import MySQLStore from "express-mysql-session";
-import { resolve } from "path/posix";
-import { appendFile } from "fs";
-import { User } from "./entity/User";
-import { PhotoController } from "./controllers/photoController";
-import { BaseEntity } from "typeorm";
-import { request } from "http";
-import { getRepository } from "typeorm";
 import fileUpload from "express-fileupload";
+import { createConnection } from "typeorm";
+import { registerRoutes } from "./routes";
 
 //---------Init Express App--------
 const app = express();
@@ -34,24 +21,9 @@ app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//routes
-
 app.use(fileUpload());
 
 registerRoutes(app);
-
-//chrnological order of posts
-app.get("/main", async (req, res) => {
-  const photos = await Photo.find({
-    order: {
-      id: "DESC",
-      createdAt: "DESC",
-    },
-  });
-  res.render("mainpage", {
-    photos,
-  });
-});
 
 createConnection()
   .then(() => {
