@@ -1,0 +1,64 @@
+
+
+<div class="recent-posts pb-65">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <% for( let i =0; i < photos.length; i++) { %>
+
+
+                <div class="loop-list loop-list-style-1  mb-md-30">
+
+                    <article class="hover-up-3 border-radius-10 overflow-hidden wow fadeIn animated">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="post-thumb position-relative" style="background-image: url(assets/imgs/news/thumb-3.jpg)">
+                                    <a class="img-link" href="/publicdiary/<%=photos[i].id %>"></a>
+                                </div>
+                            </div>
+                            <div class="col-md-7 align-self-center">
+                                <div class="post-content pr-30">
+                                    
+                                    <h4 class="post-title mb-40">
+                                        <a class="" href="/publicdiary/<%= photos[i].id %>"><%=photos[i].title %></a>
+                                    </h4>
+                                    <div class="d-flex">
+                                        <div class="post-meta-2 font-md d-flex w-70">
+                                            <a class="align-self-center" href="/publicdiary/<%= photos[i].id %>"  tabindex="0">
+                                                <img src="../../../public/film.png" alt="">
+                                            </a>
+                                            <div class="mb-0 post-on font-lg text-grey-400">
+                                                <a> <strong class="author-name"> </strong></a>
+                                            </div>
+                                         
+                                        </div>
+                                        <div class="text-right post-list-icon align-self-center w-30">
+                                            <a><i class="elegant-icon icon_heart_alt "></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                    </article>
+                   
+                </div>
+
+
+    <br />
+    
+
+
+
+                <% } %>
+            </div>
+           
+        </div>
+       
+        <div class="mt-65">
+            <button class="btn btn-lg bg-dark text-white d-inline-block">Load more posts</button>
+        </div>
+    </div>
+  
+</div>

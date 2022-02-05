@@ -26,6 +26,9 @@ export class User extends BaseEntity {
   @Column()
   email: string = "";
 
+  @Column()
+  photos: string = "";
+
   @Column("json")
   security: {
     tokens: { _id: string; refreshToken: string; createdAt: Date }[];

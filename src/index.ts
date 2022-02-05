@@ -7,6 +7,17 @@ import { Request, Response } from "express";
 import { createConnection } from "typeorm";
 import * as bodyParser from "body-parser";
 import { registerRoutes } from "./routes";
+import { Photo } from "./entity/photo";
+import { create } from "domain";
+import MySQLStore from "express-mysql-session";
+import { resolve } from "path/posix";
+import { appendFile } from "fs";
+import { User } from "./entity/User";
+import { PhotoController } from "./controllers/photoController";
+import { BaseEntity } from "typeorm";
+import { request } from "http";
+import { getRepository } from "typeorm";
+import fileUpload from "express-fileupload";
 
 //---------Init Express App--------
 const app = express();
@@ -19,43 +30,37 @@ app.use(express.static("public"));
 app.use("/public", express.static("public"));
 
 // for parsing application/json
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json());
+// for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const port = 3000;
+//routes
 
-app.listen(port, () => {
-  console.log(`Sunucu ${port} portunda başlatıldı`);
+app.use(fileUpload());
+
+registerRoutes(app);
+
+//chrnological order of posts
+app.get("/main", async (req, res) => {
+  const photos = await Photo.find({
+    order: {
+      id: "DESC",
+      createdAt: "DESC",
+    },
+  });
+  res.render("mainpage", {
+    photos,
+  });
 });
 
-app.get("/main", (req, res) => {
-  res.render("mainpage");
-});
+createConnection()
+  .then(() => {
+    const port = 3000;
 
-app.get("/error", (req: Request, res: Response) => {
-  res.render("erroring");
-});
-
-app.get("/recommendation", (req: Request, res: Response) => {
-  res.render("recommendation");
-});
-
-app.get("/publicdiary", (req: Request, res: Response) => {
-  res.render("publicdiary");
-});
-
-app.get("/profile", (req: Request, res: Response) => {
-  res.render("profile");
-});
-
-app.get("/secretdiary", (req: Request, res: Response) => {
-  res.render("secretdiary");
-});
-
-async function main() {
-  await createConnection();
-
-  registerRoutes(app);
-}
-
-main().catch((err) => console.log("Main Error:", err));
+    app.listen(port, () => {
+      console.log(`Sunucu ${port} portunda başlatıldı`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });

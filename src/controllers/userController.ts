@@ -2,6 +2,7 @@ import * as bcrypt from "bcryptjs";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../entity/User";
+import { Photo } from "../entity/photo";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -73,6 +74,13 @@ export class UserController {
     return response.json({
       success: false,
       error: "Invalid username or password",
+    });
+  }
+
+  async profile(req, res) {
+    const photos = await Photo.find();
+    res.render("profile", {
+      photos,
     });
   }
 }
