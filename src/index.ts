@@ -1,11 +1,10 @@
 import "reflect-metadata";
 import "dotenv/config";
-import express from "express";
+import express, { Request, Response } from "express";
 import * as bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
 import { createConnection } from "typeorm";
-import { registerRoutes } from "./routes";
-import{Request,Response} from "express";
+import { registerRoutes } from './routes';
 
 //---------Init Express App--------
 const app = express();
@@ -24,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(fileUpload());
 
-//registerRoutes(app);
+registerRoutes(app);
 
 createConnection()
   .then(() => {

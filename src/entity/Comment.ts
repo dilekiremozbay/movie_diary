@@ -1,6 +1,7 @@
-import { BaseEntity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './User';
 
+@Entity()
 export class Comment extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -8,7 +9,6 @@ export class Comment extends BaseEntity {
   @Column()
   comment: string;
 
-  @Column()
   @ManyToOne(type => User)
   user: User;
 
