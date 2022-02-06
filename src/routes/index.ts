@@ -9,7 +9,7 @@ export function registerRoutes(app: Application) {
 
   app.get("/register", userController.register);
   app.post("/register", userController.registerPOST);
-  app.get("/", userController.login);
+  app.get("/login", userController.login);
 
   // setup routes
   const router = Router();

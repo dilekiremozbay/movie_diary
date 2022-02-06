@@ -140,7 +140,7 @@
                 console.log(pair[0] + ', ' + pair[1]);
             }
 
-            const resp = await fetch('/?from=register', {
+            const resp = await fetch('/api/login?from=register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
