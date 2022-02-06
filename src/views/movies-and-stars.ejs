@@ -23,3 +23,27 @@
     </main>
     <!-- Footer Start-->
     <%- include("partials/_footer") -%>
+
+    <script>
+        fetch('/api/movies', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+        .then(response => {
+            if (response.status === 401) {
+                window.location.href = '/login';
+                return
+            }
+
+            return response.json()
+        })
+        .then(movies => {
+            console.log('movies', movies);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    </script>

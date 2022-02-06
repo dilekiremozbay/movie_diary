@@ -11,16 +11,22 @@ export function registerRoutes(app: Application) {
   app.post("/register", userController.registerPOST);
   app.get("/login", userController.login);
 
-  // setup routes
   const router = Router();
+
+  router.get("/", movieController.listingPage);
+
+  app.use(router);
+
+  // setup routes
+  const apiRouter = Router();
   
   // unauthorized endpoints
-  router.post("/login", userController.loginPOST);
+  apiRouter.post("/login", userController.loginPOST);
 
   // authorized endpoints
-  router.use(validateJWTMiddleware);
-  router.get("/me", userController.me);
-  router.get("/movies", movieController.list);
+  apiRouter.use(validateJWTMiddleware);
+  apiRouter.get("/me", userController.me);
+  apiRouter.get("/movies", movieController.list);
 
-  app.use("/api", router);
+  app.use("/api", apiRouter);
 }
