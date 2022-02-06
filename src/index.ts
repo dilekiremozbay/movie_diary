@@ -6,18 +6,18 @@ import * as ejs from "ejs";
 import { Request, Response } from "express";
 import { createConnection } from "typeorm";
 import * as bodyParser from "body-parser";
-import { registerRoutes } from "./routes";
+//import { registerRoutes } from "./routes";
 import { Photo } from "./entity/photo";
 import { create } from "domain";
-import MySQLStore from "express-mysql-session";
+// import MySQLStore from "express-mysql-session";
 import { resolve } from "path/posix";
 import { appendFile } from "fs";
 import { User } from "./entity/User";
-import { PhotoController } from "./controllers/photoController";
+// import { PhotoController } from "./controllers/photoController";
 import { BaseEntity } from "typeorm";
 import { request } from "http";
 import { getRepository } from "typeorm";
-import fileUpload from "express-fileupload";
+// import fileUpload from "express-fileupload";
 
 //---------Init Express App--------
 const app = express();
@@ -36,22 +36,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //routes
 
-app.use(fileUpload());
+// app.use(fileUpload());
 
-registerRoutes(app);
+//registerRoutes(app);
 
 //chrnological order of posts
-app.get("/main", async (req, res) => {
-  const photos = await Photo.find({
-    order: {
-      id: "DESC",
-      createdAt: "DESC",
-    },
-  });
-  res.render("mainpage", {
-    photos,
-  });
-});
+// app.get("/main", async (req, res) => {
+//   const photos = await Photo.find({
+//     order: {
+//       id: "DESC",
+//       createdAt: "DESC",
+//     },
+//   });
+//   res.render("mainpage", {
+//     photos,
+//   });
+// });
 
 createConnection()
   .then(() => {
@@ -64,3 +64,47 @@ createConnection()
   .catch((err) => {
     console.log(err);
   });
+
+app.get("/movie-add", (req: Request, res: Response) => {
+  res.render("movie-add");
+});
+
+app.get("/movies-and-artists", (req: Request, res: Response) => {
+  res.render("movies-and-artists");
+});
+
+app.get("/star-add", (req: Request, res: Response) => {
+  res.render("star-add");
+});
+
+app.get("/star-detail", (req: Request, res: Response) => {
+  res.render("star-detail");
+});
+
+app.get("/movie-detail", (req: Request, res: Response) => {
+  res.render("movie-detail");
+});
+
+app.get("/about", (req: Request, res: Response) => {
+  res.render("about");
+});
+
+app.get("/404", (req: Request, res: Response) => {
+  res.render("404");
+});
+
+app.get("/movies-and-stars", (req: Request, res: Response) => {
+  res.render("movies-and-stars");
+});
+
+app.get("/profile", (req: Request, res: Response) => {
+  res.render("profile");
+});
+
+app.get("/private-movie-detail", (req: Request, res: Response) => {
+  res.render("private-movie-detail");
+});
+
+app.get("/private-star-detail", (req: Request, res: Response) => {
+  res.render("private-star-detail");
+});
