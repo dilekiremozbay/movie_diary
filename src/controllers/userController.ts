@@ -75,4 +75,22 @@ export class UserController {
       error: "Invalid username or password",
     });
   }
+
+  async me(req: Request, res: Response) {
+    const user = await User.findOne({
+      where: { id: req.userId },
+    });
+
+    if (!user) {
+      return res.json({
+        error: "User not found",
+      });
+    }
+
+    return res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    });
+  }
 }

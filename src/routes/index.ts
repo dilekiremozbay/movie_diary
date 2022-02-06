@@ -19,6 +19,7 @@ export function registerRoutes(app: Application) {
 
   // authorized endpoints
   router.use(validateJWTMiddleware);
+  router.get("/me", userController.me);
   router.get("/movies", movieController.list);
 
   app.use("/api", router);
