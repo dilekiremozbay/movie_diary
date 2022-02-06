@@ -1,33 +1,30 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
+import { User } from '../entity/User';
 
 const jwtSecret = process.env.JWT_SECRET;
 
 declare module 'express' {
   interface Request {
-    userId?: string;
+    user?: User;
   }
 }
 
-export function validateJWTMiddleware(req: Request, res: Response, next: NextFunction) {
-  const headerValue = req.headers.authorization;
-  const token = headerValue && headerValue.split(' ')[1];
+export async function validateJWTMiddleware(req: Request, res: Response, next: NextFunction) {
+  const token = req.signedCookies.token;
 
   if (!token) {
-    return res.status(401).json({
-      error: 'No token provided in Authorization header',
-    });
+    return res.redirect('/login');
   }
 
   try {
     const decoded = verify(token, jwtSecret);
+    const user = await User.findOne(decoded.sub as string);
 
-    req.userId = decoded.sub as string;
+    req.user = user;
 
     next();
   } catch (err) {
-    return res.status(401).json({
-      error: 'Invalid token provided.',
-    });
+    return res.redirect('/login');
   }
 }

@@ -3,6 +3,7 @@ import "dotenv/config";
 import express, { Request, Response } from "express";
 import * as bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
+import cookieParser from 'cookie-parser';
 import { createConnection } from "typeorm";
 import { registerRoutes } from './routes';
 
@@ -23,6 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(fileUpload());
 
+app.use(cookieParser('cookie-parser-secret'));
+
 registerRoutes(app);
 
 createConnection()
@@ -36,18 +39,6 @@ createConnection()
   .catch((err) => {
     console.log(err);
   });
-
-app.get("/movie-add", (req: Request, res: Response) => {
-  res.render("movie-add");
-});
-
-app.get("/movies-and-artists", (req: Request, res: Response) => {
-  res.render("movies-and-artists");
-});
-
-app.get("/star-add", (req: Request, res: Response) => {
-  res.render("star-add");
-});
 
 app.get("/star-detail", (req: Request, res: Response) => {
   res.render("star-detail");
@@ -65,18 +56,6 @@ app.get("/404", (req: Request, res: Response) => {
   res.render("404");
 });
 
-app.get("/movies-and-stars", (req: Request, res: Response) => {
-  res.render("movies-and-stars");
-});
-
 app.get("/profile", (req: Request, res: Response) => {
   res.render("profile");
-});
-
-app.get("/private-movie-detail", (req: Request, res: Response) => {
-  res.render("private-movie-detail");
-});
-
-app.get("/private-star-detail", (req: Request, res: Response) => {
-  res.render("private-star-detail");
 });

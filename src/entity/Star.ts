@@ -2,12 +2,12 @@ import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGenerat
 import { User } from './User';
 
 @Entity()
-export class Movie extends BaseEntity {
+export class Star extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
   @Column()
-  title: string
+  fullName: string
 
   @Column('text')
   description: string

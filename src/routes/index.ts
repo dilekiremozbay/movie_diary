@@ -1,32 +1,31 @@
 import { Application, Router } from "express";
-import { MovieController } from '../controllers/movieController';
+import { MovieAndStarController } from '../controllers/movieAndStarController';
 import { UserController } from "../controllers/userController";
 import { validateJWTMiddleware } from '../middlewares/authorizer';
 
 export function registerRoutes(app: Application) {
   const userController = new UserController();
-  const movieController = new MovieController();
-
-  app.get("/register", userController.register);
-  app.post("/register", userController.registerPOST);
-  app.get("/login", userController.login);
-
-  const router = Router();
-
-  router.get("/", movieController.listingPage);
-
-  app.use(router);
-
+  const movieAndStarController = new MovieAndStarController();
+  
   // setup routes
-  const apiRouter = Router();
+  const router = Router();
   
   // unauthorized endpoints
-  apiRouter.post("/login", userController.loginPOST);
+  router.get("/login", userController.login);
+  router.post("/login", userController.loginPOST);
+  router.get("/register", userController.register);
+  router.post("/register", userController.registerPOST);
 
   // authorized endpoints
-  apiRouter.use(validateJWTMiddleware);
-  apiRouter.get("/me", userController.me);
-  apiRouter.get("/movies", movieController.list);
+  router.use(validateJWTMiddleware);
 
-  app.use("/api", apiRouter);
+  router.get("/", movieAndStarController.listingPage);
+  router.get('/logout', userController.logout);
+  router.get("/movie-add", movieAndStarController.addMovie);
+  router.post("/movie-add", movieAndStarController.addMoviePOST);
+
+  router.get("/star-add", movieAndStarController.addStar);
+  router.post("/star-add", movieAndStarController.addStarPOST);
+
+  app.use(router);
 }

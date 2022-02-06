@@ -10,17 +10,17 @@
                 <h3 class="font-heading mb-50">Who is your favorite movie star?</h3>
                 <div class="row">
                     <div class="col-md-8">
-                        <form class="form-contact comment_form" method="POST" action="/publicdiary" id="commentForm"  enctype="multipart/form-data">
+                        <form class="form-contact comment_form" method="POST" action="/star-add" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input class="form-control" name="name" id="name" type="text" placeholder="Actor/Actress Name:">
+                                        <input class="form-control" name="fullName" type="text" placeholder="Actor/Actress Name:">
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <textarea class="form-control w-100" name="description" id="comment" cols="30" rows="9" placeholder="My favorite movie star is..."></textarea>
+                                        <textarea class="form-control w-100" name="description" cols="30" rows="9" placeholder="My favorite movie star is..."></textarea>
                                     </div>
                                 </div>
                             
@@ -34,7 +34,7 @@
                            
                             <div class="form-group">
                                 <div class="checkbox">
-                                    <div class="custome-checkbox">
+                                    <div class="custom-checkbox">
                                         <input class="form-check-input" type="checkbox" name="checkbox" id="createaccount">
                                         <label class="form-check-label label_info fw-700 text-grey-100 font-md"><span>Publish Private</label>
                                     </div>
@@ -61,4 +61,3 @@
     <!-- End Main content -->
     <!-- Footer Start-->
     <%- include("partials/_footer") -%>
-    

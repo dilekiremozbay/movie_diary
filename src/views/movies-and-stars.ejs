@@ -3,47 +3,23 @@
 
 </br>
 </br>
-    <!-- Start Main content -->
-    <main>
-        <section class="pt-30 pb-65">
-            <div class="container">
-                <div class="archive-header pb-10">
-                    <div class="archive-header-title">
-                        <h1 class="font-heading mb-30">Movie Diaries</h1>
-                        <p class=" font-lg">Read,comment and like public movie diaries!</p>
-                    </div>
-                
+<!-- Start Main content -->
+<main>
+    <section class="pt-30 pb-65">
+        <div class="container">
+            <div class="archive-header pb-10">
+                <div class="archive-header-title">
+                    <h1 class="font-heading mb-30">Movie Diaries</h1>
+                    <p class=" font-lg">Read,comment and like public movie diaries!</p>
                 </div>
-                
             </div>
-        </section>
 
-       <%- include("partials/_add") -%>
-       
-    </main>
-    <!-- Footer Start-->
-    <%- include("partials/_footer") -%>
+        </div>
+    </section>
 
-    <script>
-        fetch('/api/movies', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-        })
-        .then(response => {
-            if (response.status === 401) {
-                window.location.href = '/login';
-                return
-            }
+    <%- include("partials/_movies_and_stars") -%>
 
-            return response.json()
-        })
-        .then(movies => {
-            console.log('movies', movies);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    </script>
+</main>
+
+<!-- Footer Start-->
+<%- include("partials/_footer") -%>
