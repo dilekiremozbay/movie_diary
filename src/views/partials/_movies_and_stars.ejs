@@ -19,9 +19,12 @@
               </div>
               <div class="col-md-7 align-self-center">
                 <div class="post-content pr-30">
-
                   <h4 class="post-title mb-40">
                     <a> <strong class="title">
+                      <% if (movieOrStar.isPrivate) { %>
+                        <i class="bi bi-file-lock-fill"></i>
+                      <% } %>
+
                       <%= movieOrStar.title ? movieOrStar.title : movieOrStar.fullName %> 
                     </strong></a>
                   </h4>
@@ -42,6 +45,15 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Actions -->
+                <div class="post-content" style="margin-top: 1em;">
+                  <button>
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+                <!-- / Actions -->
+
               </div>
 
             </div>

@@ -21,6 +21,7 @@ export function registerRoutes(app: Application) {
   router.use(validateJWTMiddleware);
 
   router.get("/", movieAndStarController.listingPage);
+  router.get('/profile', userController.profile);
   router.get("/logout", userController.logout);
   router.get("/movie-add", movieAndStarController.addMovie);
   router.post("/movie-add", movieAndStarController.addMoviePOST);

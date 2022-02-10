@@ -55,7 +55,3 @@ app.get("/about", (req: Request, res: Response) => {
 app.get("/404", (req: Request, res: Response) => {
   res.render("404");
 });
-
-app.get("/profile", (req: Request, res: Response) => {
-  res.render("profile");
-});

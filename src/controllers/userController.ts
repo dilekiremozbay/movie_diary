@@ -1,6 +1,8 @@
 import * as bcrypt from "bcryptjs";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { Movie } from '../entity/Movie';
+import { Star } from '../entity/Star';
 import { User } from "../entity/User";
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -115,5 +117,33 @@ export class UserController {
       username: user.username,
       email: user.email,
     });
+  }
+
+  async profile(req: Request, res: Response) {
+    const movies = await Movie.find({
+      where: {
+        createdBy: req.user.id,
+      },
+      order: {
+        createdAt: "DESC",
+      },
+    });
+    const stars = await Star.find({
+      where: {
+        createdBy: req.user.id,
+      },
+      order: {
+        createdAt: "DESC",
+      },
+    });
+    const moviesAndStars: (Movie | Star)[] = movies.concat(stars as any[]);
+
+    moviesAndStars.sort((b, a) => {
+      return a.createdAt.getTime() - b.createdAt.getTime();
+    });
+
+    res.render('profile', {
+      moviesAndStars,
+    })
   }
 }
