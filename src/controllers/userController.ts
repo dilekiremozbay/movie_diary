@@ -28,6 +28,18 @@ export class UserController {
       }
     }
 
+    const existingUser = await User
+      .createQueryBuilder("user")
+      .where("user.username = :username OR user.email = :email", { username: body.username, email: body.email })
+      .getOne();
+
+    if (existingUser) {
+      return response.status(400).render("register", {
+        error: "Username or email already exists",
+        values: body,
+      });
+    }
+
     const user = User.create<User>(body) as unknown as User;
 
     user.password = bcrypt.hashSync(user.password, 10);
