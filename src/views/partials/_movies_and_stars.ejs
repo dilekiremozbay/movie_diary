@@ -48,9 +48,15 @@
 
                 <!-- Actions -->
                 <div class="post-content" style="margin-top: 1em;">
-                  <button>
+                  <% if (movieOrStar.createdBy.id === user.id) { %>
+                  <button
+                    <%-
+                      `onclick="confirmDelete('${movieOrStar.type}', ${movieOrStar.id})"`
+                    %>
+                  >
                     <i class="bi bi-trash"></i>
                   </button>
+                  <% } %>
                 </div>
                 <!-- / Actions -->
 
@@ -71,3 +77,11 @@
   </div>
 
 </div>
+
+<script>
+  function confirmDelete(type, id) {
+    if (confirm("Are you sure you want to delete this?")) {
+      window.location.href = `${type}/${id}/delete`;
+    }
+  }
+</script>

@@ -29,6 +29,7 @@ export class MovieAndStarController {
 
     res.render("movies-and-stars", {
       moviesAndStars,
+      user: req.user,
     });
   }
 
@@ -96,5 +97,29 @@ export class MovieAndStarController {
       type: 'star',
       entity: star,
     })
+  }
+
+  async deleteMovie(req: Request, res: Response) {
+    const movie = await Movie.findOne(req.params.id);
+
+    if (movie.createdBy.id !== req.user.id) {
+      return res.sendStatus(403);
+    }
+
+    await movie.remove();
+
+    res.redirect('/');
+  }
+
+  async deleteStar(req: Request, res: Response) {
+    const star = await Star.findOne(req.params.id);
+
+    if (star.createdBy.id !== req.user.id) {
+      return res.sendStatus(403);
+    }
+
+    await star.remove();
+
+    res.redirect('/');
   }
 }

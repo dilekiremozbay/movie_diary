@@ -144,6 +144,7 @@ export class UserController {
 
     res.render('profile', {
       moviesAndStars,
+      user: req.user,
     })
   }
 }

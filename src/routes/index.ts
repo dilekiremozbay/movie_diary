@@ -30,7 +30,9 @@ export function registerRoutes(app: Application) {
   router.post("/star-add", movieAndStarController.addStarPOST);
 
   router.get("/movie/:id", movieAndStarController.movieDetails);
+  router.get("/movie/:id/delete", movieAndStarController.deleteMovie);
   router.get("/star/:id", movieAndStarController.starDetails);
+  router.get("/star/:id/delete", movieAndStarController.deleteStar);
 
   app.use(router);
 }
