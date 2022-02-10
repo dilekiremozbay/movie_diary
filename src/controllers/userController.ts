@@ -47,7 +47,7 @@ export class UserController {
   async logout(req: Request, res: Response) {
     res.clearCookie("token");
 
-    return res.redirect('/');
+    return res.redirect("/");
   }
 
   async loginPOST(request: Request, response: Response) {
@@ -70,7 +70,7 @@ export class UserController {
     });
 
     if (user && bcrypt.compareSync(body.password, user.password)) {
-      const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+      const token = jwt.sign({ sub: user.id }, JWT_SECRET);
 
       response.cookie("token", token, {
         signed: true,

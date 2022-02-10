@@ -3,9 +3,9 @@ import "dotenv/config";
 import express, { Request, Response } from "express";
 import * as bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 import { createConnection } from "typeorm";
-import { registerRoutes } from './routes';
+import { registerRoutes } from "./routes";
 
 //---------Init Express App--------
 const app = express();
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(fileUpload());
 
-app.use(cookieParser('cookie-parser-secret'));
+app.use(cookieParser("cookie-parser-secret"));
 
 registerRoutes(app);
 

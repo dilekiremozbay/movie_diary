@@ -1,18 +1,25 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './User';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Movie extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column()
-  title: string
+  title: string;
 
-  @Column('text')
-  description: string
+  @Column("text")
+  description: string;
 
-  @ManyToOne(type => User, {
+  @ManyToOne((type) => User, {
     eager: true,
   })
   createdBy: User;
