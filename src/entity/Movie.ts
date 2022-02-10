@@ -13,6 +13,8 @@ export class Movie extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  type = 'movie';
+
   @Column()
   title: string;
 

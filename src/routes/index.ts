@@ -28,5 +28,8 @@ export function registerRoutes(app: Application) {
   router.get("/star-add", movieAndStarController.addStar);
   router.post("/star-add", movieAndStarController.addStarPOST);
 
+  router.get("/movie/:id", movieAndStarController.movieDetails);
+  router.get("/star/:id", movieAndStarController.starDetails);
+
   app.use(router);
 }

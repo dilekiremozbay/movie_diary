@@ -61,4 +61,40 @@ export class MovieAndStarController {
 
     res.redirect("/");
   }
+
+  async movieDetails(req: Request, res: Response) {
+    const currentUser = req.user;
+    const movie = await Movie.findOne(req.params.id);
+
+    if (!movie) {
+      return res.sendStatus(404);
+    }
+
+    if (movie.isPrivate && movie.createdBy.id !== currentUser.id) {
+      return res.sendStatus(403)
+    }
+
+    res.render('movie-star-detail', {
+      type: 'movie',
+      entity: movie,
+    })
+  }
+
+  async starDetails(req: Request, res: Response) {
+    const currentUser = req.user;
+    const star = await Star.findOne(req.params.id);
+
+    if (!star) {
+      return res.sendStatus(404);
+    }
+
+    if (star.isPrivate && star.createdBy.id !== currentUser.id) {
+      return res.sendStatus(403)
+    }
+
+    res.render('movie-star-detail', {
+      type: 'star',
+      entity: star,
+    })
+  }
 }

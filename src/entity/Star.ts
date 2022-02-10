@@ -14,6 +14,8 @@ export class Star extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  type = "star";
+
   @Column()
   fullName: string;
 
