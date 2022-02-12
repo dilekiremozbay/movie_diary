@@ -6,6 +6,7 @@ import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 import { createConnection } from "typeorm";
 import { registerRoutes } from "./routes";
+import multer from "multer";
 
 //---------Init Express App--------
 const app = express();
