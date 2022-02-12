@@ -11,6 +11,63 @@
 
               <!--common parts of private and public area-->
               <%- include("partials/_detail-movie-star") -%>
+                    <!--Comments-->
+                    <div class="comments-area wow fadeIn animated">
+                        <div class="widget-header-2 position-relative mb-30">
+                            <h3 class="mt-5 mb-30 font-heading">Comments</h3>
+                        </div>
+                        <div class="comment-list wow fadeIn animated">
+                            <% for ( const comment of entity.comments ){  %>
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img src="../../public/film.png" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <p class="comment">
+                                        <%= comment.comment %>
+                                        </p>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <h5>
+                                                   @<%= comment.user.username %>
+                                                </h5>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+
+                     <!--comment loopu-->
+                     <% } %>
+                       
+                    </div>
+                    <!--comment form-->
+                    <div class="comment-form wow fadeIn animated pb-1">
+                        <div class="widget-header-2 position-relative mb-30">
+                            <h3 class="mt-1 mb-20 font-heading">Leave a Comment</h3>
+                        </div>
+                        <form class="form-contact comment_form" 
+                            action="<%= `/${entity.type}/${entity.id}/comments` %>"
+                            method="post"
+                          id="commentForm">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="4" placeholder="Write Comment"></textarea>
+                                    </div>
+                                </div>
+                              
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-lg bg-dark text-white d-inline-block">Post Comment</button>
+                            </div>
+                        </form>
+                    </div>
+                    
 
             </div>
           </div>

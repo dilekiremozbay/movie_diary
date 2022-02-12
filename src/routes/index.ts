@@ -21,7 +21,7 @@ export function registerRoutes(app: Application) {
   router.use(validateJWTMiddleware);
 
   router.get("/", movieAndStarController.listingPage);
-  router.get('/profile', userController.profile);
+  router.get("/profile", userController.profile);
   router.get("/logout", userController.logout);
   router.get("/movie-add", movieAndStarController.addMovie);
   router.post("/movie-add", movieAndStarController.addMoviePOST);
@@ -32,9 +32,12 @@ export function registerRoutes(app: Application) {
   router.get("/movie/:id", movieAndStarController.movieDetails);
   router.get("/movie/:id/delete", movieAndStarController.deleteMovie);
   router.get("/movie/:id/like", movieAndStarController.likeMovieOrStar);
+  router.post("/movie/:id/comments", movieAndStarController.addComment);
+
   router.get("/star/:id", movieAndStarController.starDetails);
   router.get("/star/:id/delete", movieAndStarController.deleteStar);
   router.get("/star/:id/like", movieAndStarController.likeMovieOrStar);
+  router.post("/star/:id/comments", movieAndStarController.addComment);
 
   app.use(router);
 }

@@ -1,5 +1,11 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './User';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Comment extends BaseEntity {
@@ -9,12 +15,14 @@ export class Comment extends BaseEntity {
   @Column()
   comment: string;
 
-  @ManyToOne(type => User)
+  @ManyToOne((type) => User, {
+    eager: true,
+  })
   user: User;
 
   @Column()
   entityId: number;
 
   @Column()
-  entityType: 'artist' | 'movie';
+  entityType: "star" | "movie";
 }

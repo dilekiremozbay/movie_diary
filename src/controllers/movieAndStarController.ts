@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
-import { Like } from '../entity/Like';
+import { Entity } from "typeorm";
+import { Comment } from "../entity/Comment";
+import { Like } from "../entity/Like";
 import { Movie } from "../entity/Movie";
 import { Star } from "../entity/Star";
 
@@ -26,18 +28,18 @@ export class MovieAndStarController {
       movie.likes = await Like.find({
         where: {
           entityId: movie.id,
-          entityType: 'movie',
+          entityType: "movie",
         },
-      })
+      });
     }
 
     for (const star of stars) {
       star.likes = await Like.find({
         where: {
           entityId: star.id,
-          entityType: 'movie',
+          entityType: "movie",
         },
-      })
+      });
     }
 
     const moviesAndStars: (Movie | Star)[] = movies.concat(stars as any[]);
@@ -91,13 +93,20 @@ export class MovieAndStarController {
     }
 
     if (movie.isPrivate && movie.createdBy.id !== currentUser.id) {
-      return res.sendStatus(403)
+      return res.sendStatus(403);
     }
 
-    res.render('movie-star-detail', {
-      type: 'movie',
+    movie.comments = await Comment.find({
+      where: {
+        entityType: "movie",
+        entityId: movie.id,
+      },
+    });
+
+    res.render("movie-star-detail", {
+      type: "movie",
       entity: movie,
-    })
+    });
   }
 
   async starDetails(req: Request, res: Response) {
@@ -109,13 +118,20 @@ export class MovieAndStarController {
     }
 
     if (star.isPrivate && star.createdBy.id !== currentUser.id) {
-      return res.sendStatus(403)
+      return res.sendStatus(403);
     }
 
-    res.render('movie-star-detail', {
-      type: 'star',
+    star.comments = await Comment.find({
+      where: {
+        entityType: "star",
+        entityId: star.id,
+      },
+    });
+
+    res.render("movie-star-detail", {
+      type: "star",
       entity: star,
-    })
+    });
   }
 
   async deleteMovie(req: Request, res: Response) {
@@ -127,7 +143,7 @@ export class MovieAndStarController {
 
     await movie.remove();
 
-    res.redirect(req.headers['referer'] || '/');
+    res.redirect(req.headers["referer"] || "/");
   }
 
   async deleteStar(req: Request, res: Response) {
@@ -139,11 +155,11 @@ export class MovieAndStarController {
 
     await star.remove();
 
-    res.redirect(req.headers['referer'] || '/');
+    res.redirect(req.headers["referer"] || "/");
   }
 
   async likeMovieOrStar(req: Request, res: Response) {
-    const entityType = req.path.includes('/movie/') ? 'movie' : 'star';
+    const entityType = req.path.includes("/movie/") ? "movie" : "star";
     const entityId = Number(req.params.id);
 
     const like = await Like.findOne({
@@ -151,13 +167,13 @@ export class MovieAndStarController {
         entityId,
         entityType,
         user: req.user,
-      }
+      },
     });
 
     if (like) {
-      await like.remove()
+      await like.remove();
     } else {
-      const nlike = new Like()
+      const nlike = new Like();
 
       nlike.entityId = entityId;
       nlike.entityType = entityType;
@@ -166,6 +182,27 @@ export class MovieAndStarController {
       await nlike.save();
     }
 
-    res.redirect(req.headers['referer'] || '/');
+    res.redirect(req.headers["referer"] || "/");
+  }
+
+  async addComment(req: Request, res: Response) {
+    const entityType = req.path.includes("/movie/") ? "movie" : "star";
+    const entityId = Number(req.params.id);
+    const body = req.body;
+
+    if (!body.comment) {
+      return res.status(400).send("Please enter the comment");
+    }
+
+    const comment = new Comment();
+
+    comment.user = req.user;
+    comment.comment = body.comment;
+    comment.entityType = entityType;
+    comment.entityId = entityId;
+
+    await comment.save();
+
+    res.redirect(`/${entityType}/${entityId}`);
   }
 }
