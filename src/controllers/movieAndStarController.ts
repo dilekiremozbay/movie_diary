@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { DateTime } from "luxon";
 import { Entity } from "typeorm";
 import { Comment } from "../entity/Comment";
 import { Like } from "../entity/Like";
@@ -103,9 +104,18 @@ export class MovieAndStarController {
       },
     });
 
+    movie.likes = await Like.find({
+      where: {
+        entityType: "movie",
+        entityId: movie.id,
+      },
+    });
+
     res.render("movie-star-detail", {
       type: "movie",
       entity: movie,
+      user: req.user,
+      createdAt: DateTime.fromJSDate(movie.createdAt).toFormat("dd/MM/yyyy"),
     });
   }
 
@@ -128,9 +138,18 @@ export class MovieAndStarController {
       },
     });
 
+    star.likes = await Like.find({
+      where: {
+        entityType: "star",
+        entityId: star.id,
+      },
+    });
+
     res.render("movie-star-detail", {
       type: "star",
       entity: star,
+      user: req.user,
+      createdAt: DateTime.fromJSDate(star.createdAt).toFormat("dd/MM/yyyy"),
     });
   }
 

@@ -1,6 +1,8 @@
 <div class="post-meta-2 font-md d-flext align-self-center mb-md-30">
   <div>
-    <span class="post-date text-muted font-md">tarih</span>
+    <span class="post-date text-muted font-md">
+      <%= createdAt %>
+    </span>
 
   </div>
 
@@ -15,15 +17,29 @@
   <i class="bi bi-file-lock-fill"></i>
   <% } %>
 
-  Title
+  <%= entity.title %>
 </h1>
 
 <div class="post-meta-2 font-md d-flext align-self-center mb-md-30">
   <div>
-    <span class="author-name">username</span>
+    <span class="author-name">
+      <%= entity.createdBy.username %></span>
     <div class="single-social-share clearfix wow fadeIn animated font-sm">
       <div class="entry-meta meta-1 font-small color-grey float-left mt-10">
-        <span class="hit-count mr-5"><i class="elegant-icon icon_like mr-5"></i>268 likes</span>
+        <span class="hit-count mr-5">
+          <a class="align-self-center" tabindex="0"
+          href="<%= `/${entity.type}/${entity.id}/like` %>"
+          style="color: red; font-size: 1.5em;"
+        >
+          <% if (entity.likes.some(like => like.user.id === user.id)) { %>
+            <i class="bi bi-heart-fill"></i>
+          <% } else { %>
+            <i class="bi bi-heart"></i>
+          <% } %>
+        </a>
+          <%= entity.likes.length %>
+          likes
+        </span>
       </div>
     </div>
 
@@ -33,17 +49,17 @@
 
 </div>
 <!--photo-->
-<figure class="image mb-30 m-auto text-center border-radius-10 hover-up-3">
+<!---<figure class="image mb-30 m-auto text-center border-radius-10 hover-up-3">
   </br>
   <img class="border-radius-10" src="assets/imgs/news/news-16.jpg" alt="post-title" />
 </figure>
-
+-->
 <!--figure-->
 <article class="entry-wraper mb-50">
   <div class="excerpt mb-30">
     </br>
     <p>
-      description
+      <%= entity.description %>
     </p>
   </div>
 </article>
