@@ -1,8 +1,10 @@
-#MOVIE DIARY
+# MOVIE DIARIES
 
 ## :calling: About
 
 In the project, users can share their favorite movies, stars and may write diaries about how they felt during or after the movies. Automatic interaction occurs during process.Users can read each other's posts and like/unlike them and make comments. In addition, users can share the posts in the private option which are only stored in the users personal profiles, and delete personal correspondences.
+
+<br/>
 
 ## :gear: Technologies
 
@@ -61,6 +63,8 @@ movie_diaries
 |--- tsconfig.json                                  // TypeScript compiler options
 ```
 
+<br/>
+
 ## :sparkles: Main Features
 
 -Gmail/Facebook login
@@ -75,13 +79,15 @@ movie_diaries
 -Comment with id
 -Logout option
 
+<br/>
+
 ## :camera_flash: Screenshots
 
-| Register                                                                             |
+| REGISTER                                                                             |
 | ------------------------------------------------------------------------------------ |
 | <img src="https://github.com/dilekiremozbay/movie_diary/blob/main/public/login.png"> |
 
-| Login                                                                                   |
+| LOGIN                                                                                   |
 | --------------------------------------------------------------------------------------- |
 | <img src="https://github.com/dilekiremozbay/movie_diary/blob/main/public/register.png"> |
 
@@ -111,6 +117,8 @@ Then go to **localhost:3000** to test it out.
 
 - JWT_SECRET=
 - PORT=3000
+
+<br/>
 
 ## :memo: License
 
