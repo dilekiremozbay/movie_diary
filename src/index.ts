@@ -40,18 +40,6 @@ createConnection()
     console.log(err);
   });
 
-app.get("/star-detail", (req: Request, res: Response) => {
-  res.render("star-detail");
-});
-
-app.get("/movie-detail", (req: Request, res: Response) => {
-  res.render("movie-detail");
-});
-
-app.get("/about", (req: Request, res: Response) => {
-  res.render("about");
-});
-
 app.get("/404", (req: Request, res: Response) => {
   res.render("404");
 });

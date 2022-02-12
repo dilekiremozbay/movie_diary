@@ -127,7 +127,7 @@ export class MovieAndStarController {
 
     await movie.remove();
 
-    res.redirect('/');
+    res.redirect(req.headers['referer'] || '/');
   }
 
   async deleteStar(req: Request, res: Response) {
@@ -139,7 +139,7 @@ export class MovieAndStarController {
 
     await star.remove();
 
-    res.redirect('/');
+    res.redirect(req.headers['referer'] || '/');
   }
 
   async likeMovieOrStar(req: Request, res: Response) {

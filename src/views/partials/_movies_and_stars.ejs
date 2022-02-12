@@ -35,7 +35,7 @@
                       </a>
                       <div class="mb-0 post-on font-lg text-grey-400">
                         <a> <strong class="author-name">
-                          @<%= movieOrStar.createdBy.username %>
+                          <%= movieOrStar.createdBy.username %>
                         </strong></a>
                       </div>
                     </div>
@@ -61,7 +61,8 @@
                       `onclick="confirmDelete('${movieOrStar.type}', ${movieOrStar.id})"`
                     %>
                   >
-                    <i class="bi bi-trash"></i>
+                  
+                    <i class="bi bi-trash2"></i>
                   </button>
                   <% } %>
                 </div>
