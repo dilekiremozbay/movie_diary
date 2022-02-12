@@ -15,14 +15,11 @@ export class Like extends BaseEntity {
   @ManyToOne((type) => User, {
     eager: true,
   })
-  createdBy: User;
-
-  @Column()
-  likes_count: number;
+  user: User;
 
   @Column()
   entityId: number;
 
   @Column()
-  entityType: "star" | "movie";
+  entityType: 'movie' | 'star';
 }

@@ -31,8 +31,10 @@ export function registerRoutes(app: Application) {
 
   router.get("/movie/:id", movieAndStarController.movieDetails);
   router.get("/movie/:id/delete", movieAndStarController.deleteMovie);
+  router.get("/movie/:id/like", movieAndStarController.likeMovieOrStar);
   router.get("/star/:id", movieAndStarController.starDetails);
   router.get("/star/:id/delete", movieAndStarController.deleteStar);
+  router.get("/star/:id/like", movieAndStarController.likeMovieOrStar);
 
   app.use(router);
 }

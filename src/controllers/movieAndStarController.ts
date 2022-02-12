@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { isAnyArrayBuffer } from "util/types";
+import { Like } from '../entity/Like';
 import { Movie } from "../entity/Movie";
 import { Star } from "../entity/Star";
 
@@ -21,6 +21,25 @@ export class MovieAndStarController {
         createdAt: "DESC",
       },
     });
+
+    for (const movie of movies) {
+      movie.likes = await Like.find({
+        where: {
+          entityId: movie.id,
+          entityType: 'movie',
+        },
+      })
+    }
+
+    for (const star of stars) {
+      star.likes = await Like.find({
+        where: {
+          entityId: star.id,
+          entityType: 'movie',
+        },
+      })
+    }
+
     const moviesAndStars: (Movie | Star)[] = movies.concat(stars as any[]);
 
     moviesAndStars.sort((b, a) => {
@@ -121,5 +140,32 @@ export class MovieAndStarController {
     await star.remove();
 
     res.redirect('/');
+  }
+
+  async likeMovieOrStar(req: Request, res: Response) {
+    const entityType = req.path.includes('/movie/') ? 'movie' : 'star';
+    const entityId = Number(req.params.id);
+
+    const like = await Like.findOne({
+      where: {
+        entityId,
+        entityType,
+        user: req.user,
+      }
+    });
+
+    if (like) {
+      await like.remove()
+    } else {
+      const nlike = new Like()
+
+      nlike.entityId = entityId;
+      nlike.entityType = entityType;
+      nlike.user = req.user;
+
+      await nlike.save();
+    }
+
+    res.redirect(req.headers['referer'] || '/');
   }
 }

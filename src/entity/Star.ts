@@ -7,6 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Like } from './Like';
 import { User } from "./User";
 
 @Entity()
@@ -32,4 +33,6 @@ export class Star extends BaseEntity {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  likes: Like[];
 }

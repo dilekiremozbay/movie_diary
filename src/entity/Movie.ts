@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Like } from './Like';
 import { User } from "./User";
 
 @Entity()
@@ -31,4 +32,6 @@ export class Movie extends BaseEntity {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  likes: Like[];
 }

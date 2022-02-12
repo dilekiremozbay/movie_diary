@@ -1,6 +1,7 @@
 import * as bcrypt from "bcryptjs";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { Like } from '../entity/Like';
 import { Movie } from '../entity/Movie';
 import { Star } from '../entity/Star';
 import { User } from "../entity/User";
@@ -136,6 +137,25 @@ export class UserController {
         createdAt: "DESC",
       },
     });
+
+    for (const movie of movies) {
+      movie.likes = await Like.find({
+        where: {
+          entityId: movie.id,
+          entityType: 'movie',
+        },
+      })
+    }
+
+    for (const star of stars) {
+      star.likes = await Like.find({
+        where: {
+          entityId: star.id,
+          entityType: 'movie',
+        },
+      })
+    }
+
     const moviesAndStars: (Movie | Star)[] = movies.concat(stars as any[]);
 
     moviesAndStars.sort((b, a) => {
