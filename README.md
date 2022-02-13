@@ -60,7 +60,7 @@ movie_diaries
 |     |      |---register.ejs                       // Registeration
 |     |      |---star-add.ejs                       // .ejs for sharing movie-star part
 |     |---index.ts                                  // Start of movie_diary
-|--- .env                                           // Environment variables
+|--- .env-sample                                    // Duplicated environment variables
 |--- .gitignore                                     // gitignore file
 |--- nodemon.json                                   // Quick Start Confugiration
 |--- ormconfig.json                                 // ORM and database connection configuration
@@ -75,7 +75,7 @@ movie_diaries
 ## :hammer_and_wrench: Main Features
 
 - Gmail/Facebook login
-- When logged in with Facebook, the username is updated according to the owner of e-mail.
+- When logged in with Facebook, the username is updated according to the owner of the e-mail.
 - If username is already registered,new username is created randomly in gmail & facebook logins.
 - JWT token authentication
 - Re-registration with the same email or username is not allowed.
@@ -91,7 +91,7 @@ movie_diaries
 
 <br/>
 
-## :crystal_ball: Foresight
+## :crystal_ball: Screenshots
 
 | REGISTER                                                                             |
 | ------------------------------------------------------------------------------------ |
