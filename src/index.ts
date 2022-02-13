@@ -61,12 +61,6 @@ passport.use(
       callbackURL: process.env.FACEBOOK_CALLBACK_URL,
     },
     async function (accessToken, refreshToken, profile, done) {
-      console.log("register facebook user:", {
-        accessToken,
-        refreshToken,
-        profile,
-      });
-
       let creds = await SocialLoginCredentials.findOne({
         where: {
           provider: profile.provider,
@@ -131,7 +125,7 @@ registerRoutes(app);
 
 createConnection()
   .then(() => {
-    const port = 3000;
+    const port = process.env.PORT || 3000;
 
     app.listen(port, () => {
       console.log(`Sunucu ${port} portunda başlatıldı`);
