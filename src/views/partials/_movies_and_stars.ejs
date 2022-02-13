@@ -42,7 +42,7 @@
                     <div class="post-meta-2 font-md  w-90">
                       <a class="align-self-center" tabindex="0"
                         href="<%= `/${movieOrStar.type}/${movieOrStar.id}/like` %>"
-                        style="color: red; font-size: 1.5em;"
+                        style="color: rgb(231, 139, 96); font-size: 1.5em;"
                       >
                         <% if (movieOrStar.likes.some(like => like.user.id === user.id)) { %>
                           <i class="bi bi-heart-fill"></i>
@@ -50,24 +50,24 @@
                           <i class="bi bi-heart"></i>
                         <% } %>
                       </a>
+                      <%= movieOrStar.likes.length %>
+                      likes
                     </div>
                   </div>
                 </div>
 
                 <!-- Actions -->
-                <div class="post-content" style="margin-top: 1em;">
+                <div>
                   <% if (movieOrStar.createdBy.id === user.id) { %>
-                  <button
-                    <%-
+                    <div 
+                      <%-
                       `onclick="confirmDelete('${movieOrStar.type}', ${movieOrStar.id})"`
-                    %>
-                  >
-                 <!--- <a href="/public/cancel.png" > 
-                    <i style="margin-right; color: #EEEEEE;" class="icon-home icon-4x"></i>Delete  </a>-->
-                    <i class="bi bi-trash2"></i>
-                  </button>
-
-                 
+                      %>
+                    >
+                      <a class="x">
+                        <img src="/public/cancel.png" >
+                      </a>
+                   </div>
                   <% } %>
                 </div>
                 <!-- / Actions -->

@@ -29,7 +29,7 @@
         <span class="hit-count mr-5">
           <a class="align-self-center" tabindex="0"
           href="<%= `/${entity.type}/${entity.id}/like` %>"
-          style="color: red; font-size: 1.5em;"
+          style="color: rgb(231, 139, 96); font-size: 1.5em;"
         >
           <% if (entity.likes.some(like => like.user.id === user.id)) { %>
             <i class="bi bi-heart-fill"></i>
