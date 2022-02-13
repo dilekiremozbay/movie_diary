@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import passport from "passport";
+import jwt from "jsonwebtoken";
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export class SocialLoginController {
   authFailure(req: Request, res: Response) {
@@ -11,9 +14,18 @@ export class SocialLoginController {
   });
 
   authWithFacebookCallbackMiddleware = passport.authenticate("facebook", {
-    successRedirect: "/",
+    successRedirect: "/auth/facebook/set-cookie",
     failureRedirect: "/auth-failure",
   });
 
-  registerFacebookUser(req: Request, res: Response) {}
+  setSocialLoginUserCookie(req: Request, res: Response) {
+    const token = jwt.sign({ sub: req.user.id }, JWT_SECRET);
+
+    res.cookie("token", token, {
+      signed: true,
+      httpOnly: true,
+    });
+
+    res.redirect("/");
+  }
 }

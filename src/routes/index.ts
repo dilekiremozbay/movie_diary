@@ -27,6 +27,10 @@ export function registerRoutes(app: Application) {
     "/auth/facebook/callback",
     socialLoginController.authWithFacebookCallbackMiddleware
   );
+  router.get(
+    "/auth/facebook/set-cookie",
+    socialLoginController.setSocialLoginUserCookie
+  );
 
   // authorized endpoints
   router.use(validateJWTMiddleware);

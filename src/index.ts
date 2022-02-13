@@ -6,12 +6,13 @@ import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 import { createConnection } from "typeorm";
 import { registerRoutes } from "./routes";
-import multer from "multer";
 import passport from "passport";
 import { Strategy as FacebookStrategy } from "passport-facebook";
 import session from "express-session";
 import { SocialLoginCredentials } from "./entity/SocialLoginCredentials";
 import { User } from "./entity/User";
+import axios, { AxiosResponse } from "axios";
+import emailAddresses from "email-addresses";
 
 //---------Init Express App--------
 const app = express();
@@ -68,7 +69,7 @@ passport.use(
 
       let creds = await SocialLoginCredentials.findOne({
         where: {
-          provider: "https://facebook.com",
+          provider: profile.provider,
           subject: profile.id,
         },
       });
@@ -77,9 +78,18 @@ passport.use(
         return done(null, creds.user);
       }
 
+      // get profile from facebook
+      const fbProfileResp: AxiosResponse<{
+        id: number;
+        email: string;
+      }> = await axios(
+        `https://graph.facebook.com/v13.0/me?fields=id%2Cemail&access_token=${accessToken}`
+      );
+
+      // check if the email address is already in use
       let user = await User.findOne({
         where: {
-          email: profile.emails[0].value,
+          email: fbProfileResp.data.email,
         },
       });
 
@@ -88,20 +98,26 @@ passport.use(
       }
 
       // create a new user
+      const emailAddress = emailAddresses.parseOneAddress(
+        fbProfileResp.data.email
+      );
+      const initialUsername = (emailAddress as any).local;
+
       user = new User();
 
-      user.email = profile.emails[0].value;
-      user.username = await User.makeUsernameUnique(profile.username);
+      user.email = fbProfileResp.data.email;
+      user.username = await User.makeUsernameUnique(initialUsername);
 
       await user.save();
 
       // save social credentials
       creds = new SocialLoginCredentials();
 
+      creds.subject = profile.id;
       creds.user = user;
       creds.accessToken = accessToken;
-      creds.refreshToken = refreshToken;
-      creds.provider = "https://facebook.com";
+      creds.refreshToken = refreshToken || "";
+      creds.provider = profile.provider;
 
       await creds.save();
 
