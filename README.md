@@ -1,15 +1,16 @@
 # MOVIE DIARIES
 
-<br/>
+### [Hereko Deploy of the Project](https://movie-diary-dilekiremozbay.herokuapp.com/login)
+
 <br/>
 
-## :calling: About
+## :mount_fuji: About
 
 In the project, users can share their favorite movies, stars and may write diaries about how they felt during or after the movies. Automatic interaction occurs during process.Users can read each other's posts and like/unlike them and make comments. In addition, users can share the posts in the private option which are only stored in the users personal profiles, and delete personal correspondences.
 
 <br/>
 
-## :gear: Technologies
+## :rocket: Technologies
 
 - [TypeORM](https://typeorm.io/#/)
 - [TypeScript](https://www.typescriptlang.org/)
@@ -23,7 +24,7 @@ In the project, users can share their favorite movies, stars and may write diari
 
 <br/>
 
-## 🗺️ Project Files Map
+## :briefcase: Project Files
 
 ```
 movie_diaries
@@ -32,11 +33,13 @@ movie_diaries
 |--- src                                            // Place of my Typescript codes
 |     |--- controllers                              // Place where my controllers are stored
 |     |      |--- movieAndStarController.ts         // addMovie,deleteMovie,addComment,etc
+|     |      |--- socialLoginController.ts          // Facebook and Gmail controllers
 |     |      |--- UserController.ts                 // createUser, loginUser, logoutUser,etc
 |     |--- entity                                   // Place where my database models are stored
 |     |      |--- Comments.ts                       // Database model for comments
 |     |      |--- Like.ts                           // Database model for likes (movies & stars)
 |     |      |--- Movie.ts                          // Database model for movies
+|     |      |--- SocialLoginCredentials.ts         // Database model for gmail/facebook login
 |     |      |--- Star.ts                           // Database model for movie stars
 |     |      |--- User.ts                           // Database model for users
 |     |--- middlewares                              // Place of my middlewares
@@ -69,23 +72,26 @@ movie_diaries
 
 <br/>
 
-## :sparkles: Main Features
+## :hammer_and_wrench: Main Features
 
 - Gmail/Facebook login
+- When logged in with Facebook, the username is updated according to the owner of e-mail.
+- If username is already registered,new username is created randomly in gmail & facebook logins.
 - JWT token authentication
 - Re-registration with the same email or username is not allowed.
-- The user who is not logged in cannot access the website
+- The user who is not logged in cannot access the website.
 - Basic CRUD operations for movie & movie star posts (except update data)
 - Private post sharing option (stored in personal profile)
 - MySQL database record
 - Posts are sorted by date
 - Like / unlike feature / number of likes
-- Comment with id
+- Comments can be shared.
+- Random photos are sorted on posts
 - Logout option
 
 <br/>
 
-## :camera_flash: Screenshots
+## :crystal_ball: Foresight
 
 | REGISTER                                                                             |
 | ------------------------------------------------------------------------------------ |
@@ -94,6 +100,14 @@ movie_diaries
 | LOGIN                                                                                   |
 | --------------------------------------------------------------------------------------- |
 | <img src="https://github.com/dilekiremozbay/movie_diary/blob/main/public/register.png"> |
+
+| MAINPAGE                                                                                |
+| --------------------------------------------------------------------------------------- |
+| <img src="https://github.com/dilekiremozbay/movie_diary/blob/main/public/mainpage.png"> |
+
+| DETAIL VIEW OF THE POST                                                                |
+| -------------------------------------------------------------------------------------- |
+| <img src="https://github.com/dilekiremozbay/movie_diary/blob/main/public/comment.png"> |
 
 <br/><br/>
 
@@ -108,7 +122,7 @@ npm install
 ### Usage
 
 ```bash
-nodemon
+npm start
 ```
 
 - _**MUST** have MySQL installed in your local_
@@ -117,10 +131,7 @@ Then go to **localhost:3000** to test it out.
 
 ### .env
 
-.env file contains the following; Replace the **XXXX** as you wish.
-
-- JWT_SECRET=
-- PORT=3000
+.env files are duplicated as .env-sample
 
 <br/>
 
