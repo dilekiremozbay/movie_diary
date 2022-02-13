@@ -18,6 +18,15 @@ export class SocialLoginController {
     failureRedirect: "/auth-failure",
   });
 
+  authWithGoogleMiddleware = passport.authenticate("google", {
+    scope: ["email"],
+  });
+
+  authWithGoogleCallbackMiddleware = passport.authenticate("google", {
+    successRedirect: "/auth/google/set-cookie",
+    failureRedirect: "/auth-failure",
+  });
+
   setSocialLoginUserCookie(req: Request, res: Response) {
     const token = jwt.sign({ sub: req.user.id }, JWT_SECRET);
 

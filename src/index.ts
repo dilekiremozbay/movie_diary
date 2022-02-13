@@ -8,6 +8,7 @@ import { createConnection } from "typeorm";
 import { registerRoutes } from "./routes";
 import passport from "passport";
 import { Strategy as FacebookStrategy } from "passport-facebook";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import session from "express-session";
 import { SocialLoginCredentials } from "./entity/SocialLoginCredentials";
 import { User } from "./entity/User";
@@ -100,6 +101,63 @@ passport.use(
       user = new User();
 
       user.email = fbProfileResp.data.email;
+      user.username = await User.makeUsernameUnique(initialUsername);
+
+      await user.save();
+
+      // save social credentials
+      creds = new SocialLoginCredentials();
+
+      creds.subject = profile.id;
+      creds.user = user;
+      creds.accessToken = accessToken;
+      creds.refreshToken = refreshToken || "";
+      creds.provider = profile.provider;
+
+      await creds.save();
+
+      done(null, user);
+    }
+  )
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL,
+    },
+    async function (accessToken, refreshToken, profile, done) {
+      let creds = await SocialLoginCredentials.findOne({
+        where: {
+          provider: profile.provider,
+          subject: profile.id,
+        },
+      });
+
+      if (creds) {
+        return done(null, creds.user);
+      }
+
+      let user = await User.findOne({
+        where: {
+          email: profile.emails[0].value,
+        },
+      });
+
+      if (user) {
+        return done(new Error("e-mail is already registered."));
+      }
+
+      const emailAddress = emailAddresses.parseOneAddress(
+        profile.emails[0].value
+      );
+      const initialUsername = (emailAddress as any).local;
+
+      user = new User();
+
+      user.email = profile.emails[0].value;
       user.username = await User.makeUsernameUnique(initialUsername);
 
       await user.save();

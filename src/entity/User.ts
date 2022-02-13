@@ -30,15 +30,12 @@ export class User extends BaseEntity {
   @Column()
   photos: string = "";
 
-  @Column("simple-json")
-  security: {
-    tokens: { _id: string; refreshToken: string; createdAt: Date }[];
-  } = { tokens: [] };
-
   static async makeUsernameUnique(username: string) {
     let currentUsername = username;
 
     for (;;) {
+      console.log("check username existence:", currentUsername);
+
       const user = await User.findOne({
         where: {
           username: currentUsername,

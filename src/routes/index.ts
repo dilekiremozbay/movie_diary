@@ -32,6 +32,17 @@ export function registerRoutes(app: Application) {
     socialLoginController.setSocialLoginUserCookie
   );
 
+  router.get("/auth/google", socialLoginController.authWithGoogleMiddleware);
+
+  router.get(
+    "/auth/google/callback",
+    socialLoginController.authWithGoogleCallbackMiddleware
+  );
+  router.get(
+    "/auth/google/set-cookie",
+    socialLoginController.setSocialLoginUserCookie
+  );
+
   // authorized endpoints
   router.use(validateJWTMiddleware);
 
