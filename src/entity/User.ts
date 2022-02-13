@@ -30,7 +30,7 @@ export class User extends BaseEntity {
   @Column()
   photos: string = "";
 
-  @Column("json")
+  @Column("simple-json")
   security: {
     tokens: { _id: string; refreshToken: string; createdAt: Date }[];
   } = { tokens: [] };
