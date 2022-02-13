@@ -65,6 +65,10 @@ export class UserController {
   async logout(req: Request, res: Response) {
     res.clearCookie("token");
 
+    if (req.logout) {
+      req.logout();
+    }
+
     return res.redirect("/");
   }
 

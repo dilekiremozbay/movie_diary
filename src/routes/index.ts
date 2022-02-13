@@ -1,12 +1,13 @@
 import { Application, Router } from "express";
 import { MovieAndStarController } from "../controllers/movieAndStarController";
+import { SocialLoginController } from "../controllers/socialLoginController";
 import { UserController } from "../controllers/userController";
-
 import { validateJWTMiddleware } from "../middlewares/authorizer";
 
 export function registerRoutes(app: Application) {
   const userController = new UserController();
   const movieAndStarController = new MovieAndStarController();
+  const socialLoginController = new SocialLoginController();
 
   // setup routes
   const router = Router();
@@ -16,6 +17,16 @@ export function registerRoutes(app: Application) {
   router.post("/login", userController.loginPOST);
   router.get("/register", userController.register);
   router.post("/register", userController.registerPOST);
+
+  router.get(
+    "/auth/facebook",
+    socialLoginController.authWithFacebookMiddleware
+  );
+
+  router.get(
+    "/auth/facebook/callback",
+    socialLoginController.authWithFacebookCallbackMiddleware
+  );
 
   // authorized endpoints
   router.use(validateJWTMiddleware);

@@ -19,6 +19,7 @@ In the project, users can share their favorite movies, stars and may write diari
 - [Bootstrap](https://getbootstrap.com/docs/)
 - [Express.js](https://expressjs.com/)
 - [MySQL](https://www.mysql.com/)
+- [EJS](https://ejs.co/)
 
 <br/>
 

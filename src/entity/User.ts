@@ -1,3 +1,4 @@
+import _ from "lodash";
 import {
   BaseEntity,
   Column,
@@ -33,4 +34,22 @@ export class User extends BaseEntity {
   security: {
     tokens: { _id: string; refreshToken: string; createdAt: Date }[];
   } = { tokens: [] };
+
+  static async makeUsernameUnique(username: string) {
+    let currentUsername = username;
+
+    for (;;) {
+      const user = await User.findOne({
+        where: {
+          username: currentUsername,
+        },
+      });
+
+      if (!user) {
+        return currentUsername;
+      }
+
+      currentUsername = username + _.random(1, 1000);
+    }
+  }
 }
