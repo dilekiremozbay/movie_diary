@@ -21,7 +21,7 @@
                             <div class="single-comment justify-content-between d-flex">
                                 <div class="user justify-content-between d-flex">
                                     <div class="thumb">
-                                        <img src="../../public/film.png" alt="">
+                                        <img src="../../public/film.png" class="mt-10 ">
                                     </div>
                                     <div class="desc">
                                         <p class="comment">
@@ -33,22 +33,29 @@
                                                    <%= comment.user.username %>
                                                 </h5>
                                             </div>
-                                           
+                                         
                                         </div>
+                                        
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
-                         
+                            </br>
+                        
+                       
+                            <% } %>
                         </div>
 
                      <!--comment loopu-->
-                     <% } %>
+            
                        
                     </div>
+                    
                     <!--comment form-->
                     <div class="comment-form wow fadeIn animated pb-1">
-                        <div class="widget-header-2 position-relative mb-30">
-                            <h3 class="mt-1 mb-20 font-heading">Leave a Comment</h3>
+                        <div class="widget-header-2  position-relative mb-30">
+                            <h3 class="mt-5 mb-10 font-heading">Leave a Comment</h3>
                         </div>
                         <form class="form-contact comment_form" 
                             action="<%= `/${entity.type}/${entity.id}/comments` %>"
